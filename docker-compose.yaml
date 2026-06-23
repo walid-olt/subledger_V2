@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  server:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - MONGO_DB_NAME=${MONGO_DB_NAME}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - PORT=3000
+      - JWT_EXPIRES_IN=1d
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
