@@ -1,27 +1,14 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose from "mongoose";
-
-let mongod;
-
-export const connect = async () => {
-  mongod = await MongoMemoryServer.create();
-  const uri = mongod.getUri();
-  await mongoose.connect(uri);
+const user = {
+  username: "john doe",
+  password_hash: "password",
+  email: "john@doe.com",
+  role: "user",
 };
 
-export const closeDatabase = async () => {
-  if (mongod) {
-    await mongoose.connection.dropDatabase();
-    await mongoose.connection.close();
-    await mongod.stop();
-  }
-};
-
-export const clearDatabase = async () => {
-  const collections = mongoose.connection.collections;
-
-  for (const key in collections) {
-    const collection = collections[key];
-    await collection.deleteMany({});
-  }
-};
+// to lazy to do a full typescript setup
+/**
+ *@param {Partial<typeof user>} [overrids]
+ * */
+export function getMockUser(overrids) {
+  return { ...user, ...overrids };
+}
