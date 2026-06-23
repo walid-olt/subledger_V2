@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node index.js --watch ",
-    "test": "jest"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -16,13 +16,14 @@
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "jest": "^30.4.2",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.2.4",
     "morgan": "^1.10.1",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0"
+    "@types/jest": "^30.0.0",
+    "mongodb-memory-server": "^11.2.0",
+    "vitest": "^4.1.9"
   }
 }
