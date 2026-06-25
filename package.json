@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node index.js --watch ",
-    "test": "vitest"
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.5.0",
     "@types/jest": "^30.0.0",
+    "@vitest/coverage-v8": "^4.1.9",
     "mongodb-memory-server": "^11.2.0",
     "vitest": "^4.1.9"
   }

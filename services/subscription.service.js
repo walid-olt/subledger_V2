@@ -49,7 +49,7 @@ export const updateUserSubscription = async (userId, subscriptionId, patch) => {
   const subscription = await Subscription.findOneAndUpdate(
     { _id: subscriptionId, user: user._id },
     patch,
-    { new: true, runValidators: true },
+    { runValidators: true, returnDocument: "after" },
   );
   if (!subscription) {
     throw new NotFoundError("Subscription not found");
@@ -71,4 +71,5 @@ export const deleteUserSubscription = async (userId, subscriptionId) => {
   if (!deleted) {
     throw new NotFoundError("Subscription not found");
   }
+  return deleted
 };
