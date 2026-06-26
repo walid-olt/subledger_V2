@@ -30,7 +30,6 @@ export function getMockUser(overrides = {}) {
  */
 export function getMockSubscription(overrides = {}) {
   return {
-    user: new mongoose.Types.ObjectId(),
     name: faker.company.name(),
     price: faker.number.float({ min: 1, max: 200, fractionDigits: 2 }),
     billing_cycle: faker.helpers.arrayElement(["monthly", "yearly"]),
