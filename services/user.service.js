@@ -8,12 +8,12 @@ export const createUser = async (userData) => {
     throw new ConflictError("A user with this email already exists");
   }
   const user = await User.create(userData);
-  return await user.save();
+  return user;
 };
 
 export const getUser = async (query, project) => {
   const filter = query.id ? { _id: query.id } : { email: query.email };
-  const user = await User.findOne(filter, project || undefined);
+  const user = await User.findOne(filter, project);
   if (!user) {
     throw new NotFoundError("User not found");
   }

@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
-// we have to extend the Document interface to include mongoose
-// document properties and methods (like _id, save, etc.)
 
-const userSchema = new mongoose.Schema({
+export const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
