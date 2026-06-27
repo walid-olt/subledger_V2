@@ -18,7 +18,7 @@ export function getMockUser(overrides = {}) {
   return {
     username: faker.person.fullName(),
     email: faker.internet.email(),
-    password_hash: faker.internet.password(),
+    password: faker.internet.password(),
     role: faker.helpers.arrayElement(["user", "admin"]),
     ...overrides,
   };
