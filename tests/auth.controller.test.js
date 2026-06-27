@@ -75,5 +75,41 @@ describe("[INTEGRATION] : auth controller", () => {
         }
       })
     })
+
+    it("should throw validation error when receiving invalid data", async () => {
+      const response = await request(server).post(paths.login).send({})
+      expect(response.status).toBe(422)
+      expect(response.body).toMatchObject({ status: "error" })
+    })
+
+    it("should throw not found error when login with non-existent email", async () => {
+      const user = getMockUser()
+      const response = await request(server).post(paths.login).send({email:user.email, password:user.password})
+
+      expect(response).toMatchObject({
+        status:404,
+        body:{
+          status:"error",
+          code:expect.stringMatching(/not_found/i)
+        }
+      })
+    })
+
+    it("should login successfully and return user data with token", async () => {
+      const user = getMockUser()
+      await request(server).post(paths.signup).send(user).expect(201)
+
+      const {email,password} = user
+      const response = await request(server).post(paths.login).send({email, password})
+
+      expect(response.status).toBe(200)
+      expect(response.body).toMatchObject({
+        status:"success",
+        data:{
+          user:expect.objectContaining({email:user.email, _id:expect.any(String)}),
+          token:expect.any(String)
+        }
+      })
+    })
   }) 
 });
