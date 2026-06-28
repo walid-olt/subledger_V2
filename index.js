@@ -1,38 +1,6 @@
-import env from "./config/env.js";
-import express from "express";
-import morgan from "morgan";
+import server from "./app.js";
 import { connectDB } from "./config/db.js";
-import { globalErrorHandler } from "./middleware/global.js";
-import { NotFoundError } from "./utils/errors.js";
-import authRoutes from "./routes/auth.routes.js";
-import userRoutes from "./routes/user.routes.js";
-import adminRoutes from "./routes/admin.routes.js";
-import subscriptionRoutes from "./routes/subscription.route.js";
-const server = express();
-server.use(morgan("dev"));
-
-server.use(express.json());
-server.use("/auth", authRoutes);
-server.use("/admin", adminRoutes);
-server.use("/subscriptions", subscriptionRoutes);
-server.use("/users", userRoutes);
-
-// health check
-server.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "success",
-    message: "Server is healthy",
-  });
-});
-
-// catch all
-server.use((_, __, next) => {
-  next(new NotFoundError("Route not found"));
-});
-
-// global error handler
-server.use(globalErrorHandler);
-
+import env from "./config/env.js";
 server.listen(env.PORT, async () => {
   await connectDB();
   console.log(`server is running on port ${process.env.PORT}`);

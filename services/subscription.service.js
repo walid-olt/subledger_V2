@@ -3,7 +3,7 @@ import User from "../models/User.model.js";
 import { NotFoundError } from "../utils/errors.js";
 
 export const createUserSubscription = async (userId, payload) => {
-  const user = await User.findById(userId, "_id");
+  const user = await User.findById(userId);
   if (!user) {
     throw new NotFoundError("User not found");
   }
@@ -15,7 +15,7 @@ export const createUserSubscription = async (userId, payload) => {
 };
 
 export const listUserSubscriptions = async (userId) => {
-  const user = await User.findById(userId, "_id");
+  const user = await User.findById(userId);
   if (!user) {
     throw new NotFoundError("User not found");
   }
@@ -49,7 +49,7 @@ export const updateUserSubscription = async (userId, subscriptionId, patch) => {
   const subscription = await Subscription.findOneAndUpdate(
     { _id: subscriptionId, user: user._id },
     patch,
-    { new: true, runValidators: true },
+    { runValidators: true, returnDocument: "after" },
   );
   if (!subscription) {
     throw new NotFoundError("Subscription not found");
@@ -71,4 +71,5 @@ export const deleteUserSubscription = async (userId, subscriptionId) => {
   if (!deleted) {
     throw new NotFoundError("Subscription not found");
   }
+  return deleted;
 };
