@@ -1,13 +1,8 @@
 import z from "zod";
 import { config } from "dotenv";
 
-/*
-  we use zod to validate the environment variables 
-  and provide type safety before we use them in our application.
-  preventing runtime errors due to missing or invalid environment variables.
-*/
-
 const envSchema = z.object({
+  NODE_ENV: z.enum(["development", "dev", "prod", "test"]).default("development"),
   PORT: z.string().default("3000"),
   MONGODB_URI: z.string(),
   MONGODB_DB_NAME: z.string().default("subledger_v1"),
@@ -17,10 +12,15 @@ const envSchema = z.object({
 
 function loadEnv() {
   config();
+  const nodeEnv = process.env.NODE_ENV;
   const { success, data, error } = envSchema.safeParse(process.env);
+  if(nodeEnv === "test") return data
   if (!success) {
-    console.error("Invalid environment variables", error.message);
-    process.exit(1);
+    console.error("Invalid environment variables", error.format());
+    if (nodeEnv === "dev" || nodeEnv === "prod") {
+      process.exit(1);
+    }
+    throw new Error("Invalid environment variables");
   }
   return data;
 }

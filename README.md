@@ -28,6 +28,7 @@ pnpm install   # ou npm install
 Copiez les variables d'environnement dans un fichier `.env` à la racine du projet :
 
 ```env
+NODE_ENV=development
 PORT=3000
 MONGODB_URI=mongodb://mongodb:27017
 MONGODB_DB_NAME=subledger_v2
@@ -37,6 +38,7 @@ JWT_EXPIRES_IN=1d
 
 | Variable | Description | Valeur par défaut |
 |---|---|---|
+| `NODE_ENV` | Environnement d'exécution (`development`, `dev`, `prod`, `test`) | `development` |
 | `PORT` | Port du serveur | `3000` |
 | `MONGODB_URI` | URI de connexion MongoDB | `mongodb://localhost:27017` |
 | `MONGODB_DB_NAME` | Nom de la base de données | `subledger_v2` |
