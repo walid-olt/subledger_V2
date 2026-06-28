@@ -1,4 +1,5 @@
-# SubLedger v2
+# SubLedger v2 
+[![tests](https://github.com/walid-olt/subledger_V2/actions/workflows/tests.yml/badge.svg)](https://github.com/walid-olt/subledger_V2/actions/workflows/tests.yml)
 
 API de gestion d'abonnements construite avec **Node.js**, **Express 5** et **MongoDB**
 
