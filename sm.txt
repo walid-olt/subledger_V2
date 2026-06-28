@@ -1,1 +1,0 @@
-Hello everyone, yesterday I wrote some unit tests for the user service, I had an issue with setting up jest since it doesn't work with es modules out of the box and it requires a lot of configuration, so I switched to vitest which is a modern alternative to jest that uses the exact same API and is much easier to set up with es modules and even typescript.
